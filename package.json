@@ -1,0 +1,23 @@
+{
+  "name": "pull",
+  "description": "",
+  "version": "0.1.0",
+  "homepage": "",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": {
+    "name": "William Blanchette",
+    "email": "wb@wblanchette.com"
+  },
+  "dependencies": {
+    "request": "~2.30.0",
+    "cheerio": "~0.13.0",
+    "MD5": "~1.2.0"
+  },
+  "devDependencies": {},
+  "private": "true",
+  "scripts": {}
+}
