@@ -3,6 +3,7 @@ var fs = require("fs");
 var request = require ("request");
 var cheerio = require("cheerio");
 var hash = require("MD5");
+var http = require("http-get");
 
 var fetch = function(url, callback){
     fs.exists(".cache", function(exists){
@@ -12,10 +13,12 @@ var fetch = function(url, callback){
 
         fs.exists(".cache/" + hash(url), function(exists){
             if(exists){
+                console.log("loading from cache");
                 fs.readFile(".cache/" + hash(url), "utf-8", function(error, cache){
                     callback(cache);
                 });
             }else{
+                console.log("loading from web")
                 request(url, function(error, response, body){
                     fs.writeFile(".cache/" + hash(url), body, function(){
                         callback(body);
@@ -56,10 +59,25 @@ fetch(baseHREF, function(html){
                 sellDate: $(".StockCodeInShopsDate").text().replace(/In Shops:\W+/, ""),
                 price: $(".StockCodeSrp").text().replace(/SRP:\W+/, ""),
                 description: $(".PreviewsHtml").text(),
-                creators: creators
+                creators: $(".StockCodeCreators").text()
             };
 
-            console.log(product);
+            var imageHREF = baseHREF + $(".FancyPopupImage").attr("href");
+
+            fs.exists("images", function(exists){
+                if(!exists){
+                    fs.mkdirSync("images");
+                }
+            });
+
+            fs.exists("images/" + product.itemCode + ".jpg", function(exists){
+                if(!exists){
+                    console.log("fetching image");
+                    http.get(imageHREF, "images/" + product.itemCode + ".jpg", function(error, result){
+
+                    });
+                }
+            });
         });
     });
 });
