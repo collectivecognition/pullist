@@ -42,7 +42,6 @@ for(var ii = 0; ii < files.length; ii++){
 
 fs.writeFileSync("site/data/comics.json", JSON.stringify(output));
 
-/*
 var images = fs.readdirSync(".cache/images/");
 
 var processImage = function(num){
@@ -56,11 +55,9 @@ var processImage = function(num){
     easyimage.rescrop({
         src: ".cache/images/" + image,
         dst: "site/images/comics/" + image,
-        width: 100,
-        height: 150,
-        cropWidth: 100,
-        cropHeight: 150,
-        fill: true
+        width: 150,
+        cropWidth: 150,
+        fill: false
     }, function(error, image){
         if(error){
             console.log("error", error)
@@ -70,4 +67,3 @@ var processImage = function(num){
 }
 
 processImage(0);
-*/

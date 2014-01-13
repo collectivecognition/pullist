@@ -59,8 +59,9 @@ body {
 
 .wrapper {
   width: 870px;
-  margin: 0 auto;
-  background: white; }
+  margin: 40px auto;
+  background: white;
+  padding-bottom: 20px; }
 
 .header {
   background: #373942;
@@ -71,10 +72,12 @@ body {
   float: left;
   position: relative;
   width: 150px;
-  height: auto;
-  margin: 20px 0 0 20px; }
+  height: 227px;
+  margin: 20px 0 0 20px;
+  overflow: hidden; }
   .comic img {
-    width: 100%; }
+    width: 100%;
+    float: left; }
   .comic .title {
     position: absolute;
     bottom: 0;

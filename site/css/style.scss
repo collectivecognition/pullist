@@ -65,6 +65,7 @@ p {
 
 $baseline: 20px;
 $comicWidth: 150px;
+$comicHeight: 227px;
 
 .clear {
     float: none;
@@ -77,8 +78,9 @@ body {
 
 .wrapper {
     width: 5 * $comicWidth + 6 * $baseline;
-    margin: 0 auto;
+    margin: $baseline * 2 auto;
     background: #fff;
+    padding-bottom: $baseline;
 }
 
 .header {
@@ -91,11 +93,13 @@ body {
     float: left;
     position: relative;
     width: $comicWidth;
-    height: auto;
+    height: $comicHeight;
     margin: $baseline 0 0 $baseline;
+    overflow: hidden;
 
     img {
         width: 100%;
+        float: left;
     }
 
     .title {
