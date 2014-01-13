@@ -1,0 +1,114 @@
+/*
+ *
+ * Fonts
+ * ========================================================================
+ *
+ */
+
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800);
+
+body {
+    font-family: Helvetica, "Open Sans", Verdana, sans-serif;
+}
+
+/*
+ *
+ * SASS Setup
+ * ========================================================================
+ *
+ */
+
+
+/*
+ *
+ * Reset
+ * ========================================================================
+ *
+ */
+
+ * {
+    margin: 0;
+    padding: 0;
+ }
+
+/*
+ *
+ * Typography & Vertical Grid
+ * ========================================================================
+ *
+ */
+
+html {
+    font-size: 100.01%;
+}
+
+body {
+    text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+* {
+    zoom: 0;
+}
+
+p {
+    font-size: 12px;
+}
+
+/*
+ *
+ * Typography & Vertical Grid
+ * ========================================================================
+ *
+ */
+
+$baseline: 20px;
+$comicWidth: 150px;
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+body {
+    background: #23252b;
+}
+
+.wrapper {
+    width: 5 * $comicWidth + 6 * $baseline;
+    margin: 0 auto;
+    background: #fff;
+}
+
+.header {
+    background: #373942;
+    height: $baseline * 2;
+    width: 100%;
+}
+
+ .comic {
+    float: left;
+    position: relative;
+    width: $comicWidth;
+    height: auto;
+    margin: $baseline 0 0 $baseline;
+
+    img {
+        width: 100%;
+    }
+
+    .title {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        font-size: 12px;
+        font-weight: 600;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 5px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+ }

@@ -16,9 +16,27 @@
     "request": "~2.30.0",
     "cheerio": "~0.13.0",
     "MD5": "~1.2.0",
-    "http-get": "~0.5.10"
+    "http-get": "~0.5.10",
+    "minify": "~0.2.2",
+    "ngmin": "~0.4.0",
+    "jshint": "~2.1.11",
+    "express": "~3.4.4",
+    "http-proxy": "~0.10.3",
+    "path": "~0.4.9",
+    "node-sass": "~0.7.0",
+    "node-bourbon": "~1.0.0",
+    "node-neat": "~1.0.0",
+    "selenium-standalone": "~2.39.0-2.7.0",
+    "protractor": "~0.15.0",
+    "easyimage": "~0.1.6"
   },
-  "devDependencies": {},
   "private": "true",
-  "scripts": {}
+  "scripts": {
+    "start": "sh scripts/start.sh",
+    "build": "sh scripts/build.sh dev",
+    "test": "sh scripts/test.sh",
+    "lint": "sh scripts/lint.sh",
+    "generate": "node tools/generate",
+    "scrape": "node tools/scraper/scraper"
+  }
 }
