@@ -110,15 +110,15 @@ var processImage = function(filename, id, callback){
     easyimage.rescrop({
         src: filename,
         dst: "/tmp/" + id + ".jpg",
-        width: 150,
-        cropWidth: 150,
+        width: 300,
+        cropWidth: 300,
         fill: false
     }, function(error, image){
         if(error){
             console.log("Error when resizing image", error)
             callback();
         }else{
-            S3Client.putFile("/tmp/" + id + ".jpg", "/comics/" + id + ".jpg", function(res){
+            S3Client.putFile("/tmp/" + id + ".jpg", "/comics/" + id + ".jpg", {"x-amz-acl": "public-read"}, function(res){
                 console.log("Uploaded image to S3");
                 callback();
             });
