@@ -28,7 +28,8 @@
     "node-neat": "~1.0.0",
     "selenium-standalone": "~2.39.0-2.7.0",
     "protractor": "~0.15.0",
-    "easyimage": "~0.1.6"
+    "easyimage": "~0.1.6",
+    "knox": "~0.8.8"
   },
   "private": "true",
   "scripts": {
@@ -36,7 +37,7 @@
     "build": "sh scripts/build.sh dev",
     "test": "sh scripts/test.sh",
     "lint": "sh scripts/lint.sh",
-    "generate": "node tools/generate",
+    "generate": "node tools/generate/generate",
     "scrape": "node tools/scraper/scraper"
   }
 }

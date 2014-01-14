@@ -1,15 +1,27 @@
 var fs = require("fs");
 
 var easyimage = require("easyimage");
+var MongoClient = require("mongodb").MongoClient;
+var ObjectID = require("mongodb").ObjectID;
 
-var output = [];
+// Setup mongodb
+
+var mongoUri = "mongodb://pullist:C2E3t85K@linus.mongohq.com:10049/pullist"; // process.env.MONGO_URL;
+
+// Parse JSON files and add to database
 
 var files = fs.readdirSync(".cache/json/");
 
 for(var ii = 0; ii < files.length; ii++){
+    console.log("#" + f)
+    // Read JSON file
+
     var f = files[ii];
     var data = fs.readFileSync(".cache/json/" + f, "utf-8");
+
     try{
+        // Parse JSON
+
         var data = JSON.parse(data);
         
         // Strip mature flag and add to JSON
@@ -31,15 +43,28 @@ for(var ii = 0; ii < files.length; ii++){
 
         data.title = data.title.replace(/\(C\: .+\)/gi, "");
 
+        // Skip titles with no # symbol (it's assumed that these aren't comics)
+
         if(data.title.match(/\#/)){
-            output.push(data);    
+             // Insert or update record for title
+
+             MongoClient.connect(mongoUri, function(error, db){
+                if(error){ return console.log("MongoDB error", error); }
+
+                var collection = db.collection("comics");
+                collection.update({itemCode: data.itemCode}, data, {upsert: true}, function(error, result){
+                    if(error){ return console.log("MongoDB error", error); }
+
+                    console.log("Inserted record for", data.title);
+                });
+             });
         }
-        
     }catch(e){
-        console.log("error parsing json", e);
+        console.log("Error parsing json for file", f, e);
     }
 }
 
+/*
 fs.writeFileSync("site/data/comics.json", JSON.stringify(output));
 
 var images = fs.readdirSync(".cache/images/");
@@ -67,3 +92,4 @@ var processImage = function(num){
 }
 
 processImage(0);
+*/
