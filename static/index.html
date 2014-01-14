@@ -16,7 +16,7 @@
                 <select ng-model="publisherFilter" ng-options="publisher for publisher in publishers"></select>
             </div>
             <div ng-repeat="comic in comicsThisWeek() | filter: {publisher: publisherFilter}" class="comic">
-                <img ng-src="images/comics/{{comic.itemCode}}.jpg">
+                <img ng-src="//s3.amazonaws.com/pullist/comics/{{comic._id}}.jpg">
                 <div class="title">{{comic.title}}</div>
             </div>
             <div class="clear"></div>

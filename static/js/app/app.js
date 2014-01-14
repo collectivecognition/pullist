@@ -20,7 +20,7 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
     controller("PullCtrl", ["$scope", "$http", function($scope, $http){
         $scope.publishers = [];
 
-        $http.get("data/comics.json").
+        $http.get("/comics").
             success(function(comics){
                 $scope.comics = comics;
 
