@@ -115,4 +115,20 @@ body {
         text-align: center;
         box-sizing: border-box;
     }
- }
+}
+
+.oauth-button {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: $baseline * 1;
+    margin: $baseline * .5;
+    padding: $baseline * .5;
+    background: #6cb5f4;
+    color: #fff;
+    outline: 1px solid #5e9ed5;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+}

@@ -1,12 +1,15 @@
 var express = require("express");
 var http = require("http");
 var path = require("path");
-
-var fs = require("fs");
-var sys = require("sys")
+var passport = require("passport");
 
 var MongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
+var GoogleStrategy = require("passport-google").Strategy;
+
+var fs = require("fs");
+var sys = require("sys");
+var util = require("util");
     
 // Initialize app
     
@@ -31,16 +34,67 @@ var mongo = function(callback){
     }
 };
 
+// Authentication configuration
+
+passport.serializeUser(function(user, done){
+    done(null, user);
+});
+
+passport.deserializeUser(function(obj, done){
+    done(null, obj);
+});
+
+passport.use(new GoogleStrategy({
+        returnURL: "http://localhost:5000/auth/google/return",
+        realm: "http://localhost:5000"
+    },
+    function(identifier, profile, done){
+        process.nextTick(function(){
+            profile.identifier = identifier;
+            return done(null, profile);
+        });
+    }
+));
+
+var ensureAuthenticated = function(req, res, next) {
+    if(req.isAuthenticated()){ return next(); }
+    res.redirect("#/login")
+}
+
 // App configuration
 
 app.configure(function(){
     app.set("port", process.env.PORT || 5000);
     app.use(express.static(path.join(__dirname, "static")));
     app.use(express.favicon());
+    app.use(express.cookieParser());
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-}).listen(process.env.PORT || 5000, function(){
-    console.log("App started");
+    app.use(express.session({ secret: "FIXME: This is a secret" }));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(app.router);
+}).listen(process.env.PORT || 5000, function(){});
+
+app.get("/auth/google", passport.authenticate("google", { failureRedirect: "/" }), function(req, res){
+    res.redirect("/");
+});
+
+app.get("/user", function(req, res){
+    if(req.user){
+        res.json(200, req.user);
+    }else{
+        res.json(500, {error: "Not logged in"});
+    }
+});
+
+app.get("/auth/google/return", passport.authenticate('google', { failureRedirect: "/" }), function(req, res){
+    res.redirect("/");
+});
+
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/");
 });
 
 // Get a list of all comics

@@ -31,6 +31,15 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
                 });
             });
 
+        $http.get("/user").
+            success(function(user){
+                $scope.user = user;
+            }).
+            error(function(error){
+                delete $scope.user;
+                console.log(error.error);
+            });
+
         $scope.comicsThisWeek = function(){
             var comics = [];
 
