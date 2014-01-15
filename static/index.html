@@ -10,8 +10,7 @@
     <body>
         <div class="header">
             <img src="images/logo.png">
-        </div>
-        <div class="wrapper">
+
             <div ng-controller="LoginCtrl">
                 <a ng-if="!user" href="/auth/google" class="oauth-button">Log In With Google</a>
                 <span ng-if="user">
@@ -20,6 +19,8 @@
                     ({{list.length}} items in your <a href="#/list">list</a>)
                 </span>
             </div>
+        </div>
+        <div class="wrapper">
             <div ng-view></div>
         </div>
 

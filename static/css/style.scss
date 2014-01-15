@@ -79,6 +79,10 @@ body {
 .header {
     width: 5 * $comicWidth + 6 * $baseline;
     margin: $baseline auto;
+
+    img {
+        margin-left: $baseline;
+    }
 }
 
 .wrapper {
@@ -121,10 +125,9 @@ body {
     font-size: 12px;
     font-weight: bold;
     text-decoration: none;
-    line-height: $baseline * 1;
-    margin: $baseline * .5;
-    padding: $baseline * .5;
-    background: #6cb5f4;
+    line-height: 32px;
+    padding: 0 10px 0 42px;
+    background: #6cb5f4 url(../images/google-logo.png) top left no-repeat;
     color: #fff;
     outline: 1px solid #5e9ed5;
     border-top: 1px solid rgba(255, 255, 255, 0.5);

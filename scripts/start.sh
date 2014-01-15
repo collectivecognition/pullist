@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Start HTTP server
-node scripts/server static 3000 &
+foreman start &
 
 # Recompile CSS when SASS file is saved
 node_modules/.bin/node-sass --watch static/css/style.scss static/css/style.scss static/css/style.css
