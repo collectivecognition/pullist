@@ -158,6 +158,29 @@ app.put("/list/add/:id", function(req, res){
     }
 });
 
+// Delete an item from a user's pull list
+
+app.delete("/list/:id", function(req, res){
+    if(req.user && req.user.identifier){
+        mongo(function(error, db){
+            var lists = db.collection("lists");
+
+            lists.findOne({userIdentifier: req.user.identifier}, function(error, list){
+                if(list){
+                    lists.findAndModify({userIdentifier: req.user.identifier}, null, {$pull: {list: {_id: new ObjectID(req.params.id)}}}, {update: true, "new": true}, function(error, updatedList){
+                        res.json(updatedList.list);
+                    });
+                }else{
+                    res.json(404, []);
+                }
+
+            });
+        });
+    }else{
+        res.json(401, {error: "Not logged in"});
+    }
+});
+
 // Get a list of all comics
 
 app.get("/comics", function(req, res){

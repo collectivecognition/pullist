@@ -11,7 +11,7 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
             }).
 
             when("/list", {
-                templateUrl: "templates/comics.html",
+                templateUrl: "templates/list.html",
                 controller: "ListCtrl",
                 title: "Your List"
             });
@@ -38,18 +38,15 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
             });
     }]).
 
-    controller("ListCtrl", ["$scope", "$http", function($scope, $http){
+    controller("ListCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
         top.listScope = $scope;
-        $http.get("/list").
-            success(function(comics){
-                $scope.comics = comics;
 
-                angular.forEach(comics, function(comic){
-                    if($scope.publishers.indexOf(comic.publisher) === -1){
-                        $scope.publishers.push(comic.publisher);
-                    }
+        $scope.removeFromList = function(id){
+            $http.delete("/list/" + id).
+                success(function(updatedList){
+                    $rootScope.list = updatedList;
                 });
-            });
+        };
     }]).
 
     controller("PullCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
