@@ -65,7 +65,7 @@ p {
 
 $baseline: 20px;
 $comicWidth: 150px;
-$comicHeight: 227px;
+$comicHeight: 240px;
 
 .clear {
     float: none;
@@ -79,9 +79,49 @@ body {
 .header {
     width: 5 * $comicWidth + 6 * $baseline;
     margin: $baseline auto;
+    position: relative;
 
     img {
         margin-left: $baseline;
+    }
+
+    .list {
+        width: 200px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        margin-left: -100px;
+        text-align: center;
+        font-size: 15px;
+        line-height: 36px;
+        color: #aaa;
+        font-weight: 600;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
+        text-transform: uppercase;
+        background: lighten(#23252b, 10%);
+
+        a {
+            color: #aaa;
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
+            text-decoration: none;
+
+            &:hover {
+                color: #fff;
+            }
+        }
+
+        b {
+            color: #fff;
+        }
+    }
+
+    .user {
+        position: absolute;
+        right: $baseline;
+        bottom: 0;
+        font-size: 12px;
+        color: #fff;
+        font-weight: 600;
     }
 }
 
@@ -100,8 +140,13 @@ body {
     margin: $baseline 0 0 $baseline;
     overflow: hidden;
 
+    .comic-wrapper {
+        float: left;
+        position: relative;
+    }
+
     img {
-        width: 100%;
+        width: $comicWidth;
         float: left;
     }
 
@@ -120,17 +165,28 @@ body {
     }
 }
 
-.oauth-button {
+.button {
     display: inline-block;
     font-size: 12px;
     font-weight: bold;
     text-decoration: none;
     line-height: 32px;
-    padding: 0 10px 0 42px;
-    background: #6cb5f4 url(../images/google-logo.png) top left no-repeat;
+    padding: 0 10px;
+    background: #6cb5f4;
     color: #fff;
     outline: 1px solid #5e9ed5;
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+
+    &:hover {
+        background-color: transparencify(#6cb5f4, 0.5);
+    }
+
+    &.google {
+        padding-left: 42px;
+        background-image: url(../images/google-logo.png);
+        background-position: top left;
+        background-repeat: no-repeat;
+    }
 }

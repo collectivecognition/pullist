@@ -4,20 +4,27 @@
         <title ng-bind-template="Pull {{title ? ' | ' + title : ''}}">Pull</title>
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width"/>
     </head>
 
     <body>
         <div class="header">
-            <img src="images/logo.png">
+            <a href="/"><img src="images/logo.png"></a>
 
-            <div ng-controller="LoginCtrl">
-                <a ng-if="!user" href="/auth/google" class="oauth-button">Log In With Google</a>
-                <span ng-if="user">
-                    Logged in as {{user.displayName}}
-                    (<a href="/logout">Log Out</a>)
-                    ({{list.length}} items in your <a href="#/list">list</a>)
-                </span>
+            <div class="list">
+                <a ng-if="list.length" href="#/list">{{list.length}} items in your list <b>&raquo;</b></a>
+                <span ng-if="!list.length">0 items in your list</span>
+            </div>
+
+            <div ng-controller="LoginCtrl" class="user">
+                <div ng-if="!user">
+                    <a href="/auth/google" class="google button">Log In With Google</a>
+                </div>
+                <div ng-if="user">
+                    <div>
+                        <a class="button" href="/logout">Log Out {{user.displayName}}</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="wrapper">
