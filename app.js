@@ -99,6 +99,22 @@ app.get("/logout", function(req, res){
     res.redirect("/");
 });
 
+// Get pull list for a user
+
+app.get("/list", function(req, res){
+    if(req.user){
+        mongo(function(error, db){
+            var collection = db.collection("lists");
+
+            collection.findAndModify({userIdentifier: req.user.identifer}, null, {userIdentifier: req.user.identifier, list: []}, {upsert: true, "new": true}, function(error, result){
+                res.json(result);
+            });
+        });
+    }else{
+        res.json(401, {error: "Not logged in"});
+    }
+});
+
 // Get a list of all comics
 
 app.get("/comics", function(req, res){

@@ -15,6 +15,7 @@
                 <span ng-if="user">
                     Logged in as {{user.displayName}}
                     (<a href="/logout">Log Out</a>)
+                    ({{user.list.length}} items in your list)
                 </span>
             <div>
                 <select ng-model="publisherFilter" ng-options="publisher for publisher in publishers"></select>
