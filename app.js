@@ -76,6 +76,8 @@ app.configure(function(){
     app.use(app.router);
 }).listen(process.env.PORT || 5000, function(){});
 
+// Authentication
+
 app.get("/auth/google", passport.authenticate("google", { failureRedirect: "/" }), function(req, res){
     res.redirect("/");
 });

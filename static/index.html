@@ -12,7 +12,10 @@
             <div class="header">
             </div>
                 <a ng-if="!user" href="/auth/google" class="oauth-button">Log In With Google</a>
-                <span ng-if="user">{{user.displayName}}</span>
+                <span ng-if="user">
+                    Logged in as {{user.displayName}}
+                    (<a href="/logout">Log Out</a>)
+                </span>
             <div>
                 <select ng-model="publisherFilter" ng-options="publisher for publisher in publishers"></select>
             </div>
