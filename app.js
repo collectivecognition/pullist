@@ -102,12 +102,42 @@ app.get("/logout", function(req, res){
 // Get pull list for a user
 
 app.get("/list", function(req, res){
-    if(req.user){
+    if(req.user && req.user.identifier){
         mongo(function(error, db){
             var collection = db.collection("lists");
 
-            collection.findAndModify({userIdentifier: req.user.identifer}, null, {userIdentifier: req.user.identifier, list: []}, {upsert: true, "new": true}, function(error, result){
-                res.json(result);
+            collection.findOne({userIdentifier: req.user.identifier}, function(error, result){
+                if(result){
+                    res.json(result.list);
+                }else{
+                    res.json(404, []);
+                }
+            });
+        });
+    }else{
+        res.json(401, {error: "Not logged in"});
+    }
+});
+
+// Add an item to a user's pull list
+
+app.put("/list/add/:id", function(req, res){
+    if(req.user && req.user.identifier){
+        console.log("user1", req.user.identifier)
+        mongo(function(error, db){
+            var collection = db.collection("lists");
+
+            collection.findOne({userIdentifier: req.user.identifier}, function(error, result){
+                if(result){
+                    collection.update({userIdentifier: req.user.identifier}, {$addToSet: {list: {$each: [req.params.id]}}}, function(error, result){
+                        res.json(result.list);
+                    });
+                }else{
+                    collection.insert({userIdentifier: req.user.identifier, list: [req.params.id]}, function(error, result){
+                        res.json(result.list);
+                    });
+                }
+
             });
         });
     }else{

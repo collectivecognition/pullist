@@ -18,6 +18,8 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
     }]).
 
     controller("PullCtrl", ["$scope", "$http", function($scope, $http){
+        top.pullScope = $scope;
+
         $scope.publishers = [];
 
         $http.get("/comics").
@@ -39,6 +41,21 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
                 delete $scope.user;
                 console.log(error.error);
             });
+
+        $http.get("/list").
+            success(function(list){
+                $scope.list = list;
+            });
+
+        $scope.addToList = function(id){
+            $http.put("/list/add/" + id).
+                success(function(updatedList){
+                    console.log("added to list", updatedList);
+                }).
+                error(function(error){
+                    // TODO
+                });
+        };
 
         $scope.comicsThisWeek = function(){
             var comics = [];
