@@ -123,18 +123,31 @@ app.get("/list", function(req, res){
 
 app.put("/list/add/:id", function(req, res){
     if(req.user && req.user.identifier){
-        console.log("user1", req.user.identifier)
         mongo(function(error, db){
-            var collection = db.collection("lists");
+            var lists = db.collection("lists");
+            var comics = db.collection("comics");
 
-            collection.findOne({userIdentifier: req.user.identifier}, function(error, result){
-                if(result){
-                    collection.update({userIdentifier: req.user.identifier}, {$addToSet: {list: {$each: [req.params.id]}}}, function(error, result){
-                        res.json(result.list);
+            lists.findOne({userIdentifier: req.user.identifier}, function(error, list){
+                if(list){
+                    comics.findOne({_id: new ObjectID(req.params.id)}, function(error, comic){
+                        if(comic){
+                            lists.findAndModify({userIdentifier: req.user.identifier}, null, {$addToSet: {list: {$each: [comic]}}}, {update: true, "new": true}, function(error, updatedList){
+                                if(error){ console.log("error", error)}
+                                res.json(updatedList.list);
+                            });
+                        }else{
+                            res.json(list.list);
+                        }
                     });
                 }else{
-                    collection.insert({userIdentifier: req.user.identifier, list: [req.params.id]}, function(error, result){
-                        res.json(result.list);
+                    comics.findOne({_id: new ObjectID(req.params.id)}, function(error, comic){
+                        if(comic){
+                            lists.insert({userIdentifier: req.user.identifier, list: [comic]}, function(error, updatedList){
+                                res.json(updatedList.list);
+                            });
+                        }else{
+                            res.json(list.list);
+                        }
                     });
                 }
 

@@ -4,17 +4,52 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
         // Handle application routes
 
         $routeProvider.
+            when("/", {
+                templateUrl: "templates/comics.html",
+                controller: "PullCtrl",
+                title: "Comics"                
+            }).
 
-            when("/logout", {
-                template: " ",
-                controller: "LogoutCtrl",
-                title: "Logged Out"
+            when("/list", {
+                templateUrl: "templates/comics.html",
+                controller: "ListCtrl",
+                title: "Your List"
             });
     }]).
 
     run(["$window", "$rootScope", "$location", "$http", function($window, $rootScope, $location, $http){
         top.appScope = $rootScope; // Expose app scope for debugging
 
+    }]).
+
+    controller("LoginCtrl", ["$scope", "$http", function($scope, $http){
+        $http.get("/user").
+            success(function(user){
+                $scope.user = user;
+            }).
+            error(function(error){
+                delete $scope.user;
+                console.log(error.error);
+            });
+
+        $http.get("/list").
+            success(function(list){
+                $scope.list = list;
+            });
+    }]).
+
+    controller("ListCtrl", ["$scope", "$http", function($scope, $http){
+        top.listScope = $scope;
+        $http.get("/list").
+            success(function(comics){
+                $scope.comics = comics;
+
+                angular.forEach(comics, function(comic){
+                    if($scope.publishers.indexOf(comic.publisher) === -1){
+                        $scope.publishers.push(comic.publisher);
+                    }
+                });
+            });
     }]).
 
     controller("PullCtrl", ["$scope", "$http", function($scope, $http){
@@ -33,24 +68,10 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
                 });
             });
 
-        $http.get("/user").
-            success(function(user){
-                $scope.user = user;
-            }).
-            error(function(error){
-                delete $scope.user;
-                console.log(error.error);
-            });
-
-        $http.get("/list").
-            success(function(list){
-                $scope.list = list;
-            });
-
         $scope.addToList = function(id){
             $http.put("/list/add/" + id).
                 success(function(updatedList){
-                    console.log("added to list", updatedList);
+                    $scope.list = updatedList;
                 }).
                 error(function(error){
                     // TODO

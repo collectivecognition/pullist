@@ -7,26 +7,19 @@
         <meta name="viewport" content="width=device-width">
     </head>
 
-    <body ng-controller="PullCtrl">
+    <body>
         <div class="wrapper">
             <div class="header">
             </div>
+            <div ng-controller="LoginCtrl">
                 <a ng-if="!user" href="/auth/google" class="oauth-button">Log In With Google</a>
                 <span ng-if="user">
                     Logged in as {{user.displayName}}
                     (<a href="/logout">Log Out</a>)
-                    ({{list.length}} items in your list)
-                </span>
-            <div>
-                <select ng-model="publisherFilter" ng-options="publisher for publisher in publishers"></select>
-            </div>
-            <div ng-repeat="comic in comicsThisWeek() | filter: {publisher: publisherFilter}" class="comic">
-                <span ng-click="addToList(comic._id)">
-                    <img ng-src="//s3.amazonaws.com/pullist/comics/{{comic._id}}.jpg">
-                    <div class="title">{{comic.title}}</div>
+                    ({{list.length}} items in your <a href="#/list">list</a>)
                 </span>
             </div>
-            <div class="clear"></div>
+            <div ng-view></div>
         </div>
 
         <script src="js/main.js"></script>
