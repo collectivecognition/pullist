@@ -4,4 +4,5 @@
 [X] Deleting comics from list
 [ ] Responsive layout
 [ ] List pulls comic metadata in dynamically at request time rather than duplicating 
-[ ] Sticky header
+[ ] Style add / delete actions
+[X] Sticky header

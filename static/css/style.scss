@@ -63,6 +63,7 @@ p {
  *
  */
 
+$bg: #23252b;
 $baseline: 20px;
 $comicWidth: 150px;
 $comicHeight: 240px;
@@ -73,32 +74,39 @@ $comicHeight: 240px;
 }
 
 body {
-    background: #23252b;
+    background: $bg;
 }
 
 .header {
     width: 5 * $comicWidth + 6 * $baseline;
-    margin: $baseline auto;
-    position: relative;
+    height: $baseline * 4;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -(5 * $comicWidth + 6 * $baseline) / 2;
+    background: transparentize($bg, 0.15);
+    z-index: 1;
 
     img {
-        margin-left: $baseline;
+        position: absolute;
+        left: $baseline;
+        bottom: $baseline;
     }
 
     .list {
         width: 200px;
         position: absolute;
-        bottom: 0;
+        bottom: $baseline;
         left: 50%;
         margin-left: -100px;
         text-align: center;
         font-size: 15px;
-        line-height: 36px;
+        line-height: $baseline * 2;
         color: #aaa;
         font-weight: 600;
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
         text-transform: uppercase;
-        background: lighten(#23252b, 10%);
+        background: transparentize(#000, 0.5);
 
         a {
             color: #aaa;
@@ -118,7 +126,7 @@ body {
     .user {
         position: absolute;
         right: $baseline;
-        bottom: 0;
+        bottom: $baseline;
         font-size: 12px;
         color: #fff;
         font-weight: 600;
@@ -127,7 +135,7 @@ body {
 
 .wrapper {
     width: 5 * $comicWidth + 6 * $baseline;
-    margin: 0 auto;
+    margin: $baseline * 4 auto $baseline auto;
     background: #fff;
     padding-bottom: $baseline;
 }
@@ -170,7 +178,7 @@ body {
     font-size: 12px;
     font-weight: bold;
     text-decoration: none;
-    line-height: 32px;
+    line-height: $baseline * 2;
     padding: 0 10px;
     background: #6cb5f4;
     color: #fff;

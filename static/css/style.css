@@ -59,24 +59,31 @@ body {
 
 .header {
   width: 870px;
-  margin: 20px auto;
-  position: relative; }
+  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: -435px;
+  background: rgba(35, 37, 43, 0.85);
+  z-index: 1; }
   .header img {
-    margin-left: 20px; }
+    position: absolute;
+    left: 20px;
+    bottom: 20px; }
   .header .list {
     width: 200px;
     position: absolute;
-    bottom: 0;
+    bottom: 20px;
     left: 50%;
     margin-left: -100px;
     text-align: center;
     font-size: 15px;
-    line-height: 36px;
+    line-height: 40px;
     color: #aaaaaa;
     font-weight: 600;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
     text-transform: uppercase;
-    background: #3a3d47; }
+    background: rgba(0, 0, 0, 0.5); }
     .header .list a {
       color: #aaaaaa;
       text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
@@ -88,14 +95,14 @@ body {
   .header .user {
     position: absolute;
     right: 20px;
-    bottom: 0;
+    bottom: 20px;
     font-size: 12px;
     color: white;
     font-weight: 600; }
 
 .wrapper {
   width: 870px;
-  margin: 0 auto;
+  margin: 80px auto 20px auto;
   background: white;
   padding-bottom: 20px; }
 
@@ -130,7 +137,7 @@ body {
   font-size: 12px;
   font-weight: bold;
   text-decoration: none;
-  line-height: 32px;
+  line-height: 40px;
   padding: 0 10px;
   background: #6cb5f4;
   color: white;
