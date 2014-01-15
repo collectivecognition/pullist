@@ -1,6 +1,6 @@
-[ ] Favicon
+[X] Favicon
 [ ] Session storage
-[ ] Logo
+[X] Logo
 [X] Deleting comics from list
 [ ] Responsive layout
 [ ] List pulls comic metadata in dynamically at request time rather than duplicating 
