@@ -150,5 +150,5 @@ body {
   .button.google {
     padding-left: 42px;
     background-image: url(../images/google-logo.png);
-    background-position: top left;
+    background-position: center left;
     background-repeat: no-repeat; }
