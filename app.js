@@ -6,6 +6,7 @@ var passport = require("passport");
 var MongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
 var GoogleStrategy = require("passport-google").Strategy;
+var MongoStore = require("connect-mongo-store")(express);
 
 var fs = require("fs");
 var sys = require("sys");
@@ -70,7 +71,14 @@ app.configure(function(){
     app.use(express.cookieParser());
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    app.use(express.session({ secret: "FIXME: This is a secret" }));
+    app.use(passport.initialize());
+    app.use(express.session({
+        store: new MongoStore(mongoUri),
+        secret: "FIXME: This secret is not secret",
+        cookie: {
+            maxAge: 604800 // One week
+        }
+    }));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(app.router);
