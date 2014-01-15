@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "mongodb": "~1.3.23",
-    "knox": "~0.8.8"
+    "knox": "~0.8.8",
+    "easyimage": "~0.1.6"
   }
 }
