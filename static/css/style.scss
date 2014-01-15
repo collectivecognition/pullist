@@ -76,17 +76,16 @@ body {
     background: #23252b;
 }
 
-.wrapper {
+.header {
     width: 5 * $comicWidth + 6 * $baseline;
-    margin: $baseline * 2 auto;
-    background: #fff;
-    padding-bottom: $baseline;
+    margin: $baseline auto;
 }
 
-.header {
-    background: #373942;
-    height: $baseline * 2;
-    width: 100%;
+.wrapper {
+    width: 5 * $comicWidth + 6 * $baseline;
+    margin: 0 auto;
+    background: #fff;
+    padding-bottom: $baseline;
 }
 
  .comic {

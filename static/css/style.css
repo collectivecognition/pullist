@@ -57,16 +57,15 @@ p {
 body {
   background: #23252b; }
 
+.header {
+  width: 870px;
+  margin: 20px auto; }
+
 .wrapper {
   width: 870px;
-  margin: 40px auto;
+  margin: 0 auto;
   background: white;
   padding-bottom: 20px; }
-
-.header {
-  background: #373942;
-  height: 40px;
-  width: 100%; }
 
 .comic {
   float: left;
