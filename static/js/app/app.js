@@ -22,7 +22,7 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
 
     }]).
 
-    controller("LoginCtrl", ["$scope", "$http", function($scope, $http){
+    controller("LoginCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
         $http.get("/user").
             success(function(user){
                 $scope.user = user;
@@ -34,7 +34,7 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
 
         $http.get("/list").
             success(function(list){
-                $scope.list = list;
+                $rootScope.list = list;
             });
     }]).
 
@@ -52,7 +52,7 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
             });
     }]).
 
-    controller("PullCtrl", ["$scope", "$http", function($scope, $http){
+    controller("PullCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
         top.pullScope = $scope;
 
         $scope.publishers = [];
@@ -71,7 +71,7 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
         $scope.addToList = function(id){
             $http.put("/list/add/" + id).
                 success(function(updatedList){
-                    $scope.list = updatedList;
+                    $rootScope.list = updatedList;
                 }).
                 error(function(error){
                     // TODO
