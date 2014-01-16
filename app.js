@@ -196,8 +196,8 @@ app.get("/comics", function(req, res){
     mongo(function(error, db){
         var collection = db.collection("comics");
 
-        var startDate = moment().startOf("week").toDate();
-        var endDate = moment().endOf("week").toDate();
+        var startDate = moment().add(1, "week").startOf("week").toDate();
+        var endDate = moment().add(1, "week").endOf("week").toDate();
 
         collection.find({sellDate: {$gte: startDate, $lte: endDate}}, function(error, comics){
             comics.toArray(function(error, comics){
