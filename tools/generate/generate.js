@@ -3,6 +3,7 @@ var fs = require("fs");
 var easyimage = require("easyimage");
 var MongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
+var nodemailer = require("nodemailer");
 var S3Client = require("knox").createClient({
     key:    "AKIAITU5O47QFXQ2QS3A",
     secret: "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",
@@ -28,6 +29,29 @@ var mongo = function(callback){
     }
 };
 
+// Send notification emails
+
+var notify = function(message){
+    var transport = nodemailer.createTransport("SMTP", {
+        service: "gmail",
+        user: "collectivecognitionmail@gmail.com",
+        pass: "{-D)]]Q~rV4(Wc("
+    });
+
+    var options = {
+        from: "Collective Cognition Mailer <collectivecognitionmail@gmail.com",
+        to: "wb@wblanchette.com",
+        subject: "Pullist Generator Executed",
+        text: message
+    }
+
+    transport.sendMail(options, function(error, response){
+        console.log("Sent notification email");
+        if(error){ console.log("error", error); }
+        transport.close();
+    });
+};
+
 // Parse JSON files and add to database
 
 var files = fs.readdirSync(".cache/json/");
@@ -35,6 +59,7 @@ var files = fs.readdirSync(".cache/json/");
 var processFile = function(num){
     if(num >= files.length){ 
         console.log("Done");
+        notify("Success!"); // FIXME
         process.exit();
         return;
     }
