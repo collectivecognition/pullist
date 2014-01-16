@@ -190,14 +190,51 @@ app.delete("/list/:id", function(req, res){
     }
 });
 
-// Get a list of all comics
+// Get a list of weeks we have data for
 
-app.get("/comics", function(req, res){
+app.get("/weeks", function(req, res){
     mongo(function(error, db){
         var collection = db.collection("comics");
 
-        var startDate = moment().add(1, "week").startOf("week").toDate();
-        var endDate = moment().add(1, "week").endOf("week").toDate();
+        collection.distinct("sellDate", function(error, dates){
+            dates.sort(function(a, b){
+                return a > b ? 1 : a < b ? -1 : 0;
+            });
+
+            var weeks = [];
+
+            for(var ii = 0; ii < dates.length; ii++){
+                var weekStart = moment(dates[ii]).startOf("week").format("MMM DD YYYY");
+                var weekEnd = moment(dates[ii]).endOf("week").format("MMM DD YYYY");
+                var weekLabel = weekStart + " to " + weekEnd;
+                var weekValue = moment(dates[ii]).startOf("week").toString();
+                var exists = false;
+                for(var jj = 0; jj < weeks.length; jj++){
+                    if(weeks[jj].label == weekLabel){
+                        exists = true;
+                    }
+                }
+                if(!exists){
+                    weeks.push({
+                        label: weekLabel,
+                        value: weekValue
+                    });
+                }
+            }
+
+            res.json(weeks);
+        });
+   }); 
+});
+
+// Get a list of all comics
+
+app.get("/comics/:month/:day/:year", function(req, res){
+    mongo(function(error, db){
+        var collection = db.collection("comics");
+
+        var startDate = moment(new Date(req.params.year, req.params.month - 1, req.params.day)).toDate();
+        var endDate = moment(new Date(req.params.year, req.params.month - 1, req.params.day)).add(1, "weeks").toDate();
 
         collection.find({sellDate: {$gte: startDate, $lte: endDate}}, function(error, comics){
             comics.toArray(function(error, comics){

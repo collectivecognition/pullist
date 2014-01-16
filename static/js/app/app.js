@@ -54,16 +54,49 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
 
         $scope.publishers = [];
 
-        $http.get("/comics").
-            success(function(comics){
-                $scope.comics = comics;
+        $scope.getComicsForWeek = function(){
+            var weekPath = moment($scope.week.value).format("M/D/YYYY");
+            $http.get("/comics/" + weekPath).
+                success(function(comics){
+                    $scope.comics = comics;
 
-                angular.forEach(comics, function(comic){
-                    if($scope.publishers.indexOf(comic.publisher) === -1){
-                        $scope.publishers.push(comic.publisher);
-                    }
+                    angular.forEach(comics, function(comic){
+                        if($scope.publishers.indexOf(comic.publisher) === -1){
+                            $scope.publishers.push(comic.publisher);
+                        }
+                    });
                 });
+        };
+
+        // Retrieve a list of available weeks
+
+        $http.get("/weeks").
+            success(function(weeks){
+                $scope.weeks = weeks;
+
+                // Select this week if possible
+
+                var now = moment();
+                for(var ii = 0; ii < $scope.weeks.length; ii++){
+                    if(now.isSame(moment($scope.weeks[ii].value).add(-1, "minute"), "week")){
+                        $scope.week = $scope.weeks[ii];
+                    }
+                }
+
+                // Default to last item in list
+
+                if(!$scope.week){
+                    $scope.week = $scope.weeks[$scope.weeks.length - 1];
+                }
             });
+
+        // When week changes, grab a new set of comics
+
+        $scope.$watch("week", function(o, n){
+            if($scope.week){
+                $scope.getComicsForWeek();
+            }
+        });
 
         $scope.addToList = function(id){
             $http.put("/list/add/" + id).
@@ -73,20 +106,5 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
                 error(function(error){
                     // TODO
                 });
-        };
-
-        $scope.comicsThisWeek = function(){
-            var comics = [];
-
-            angular.forEach($scope.comics, function(comic){
-                if(comic.title.indexOf("#") > -1){
-                    var sellDate = moment(comic.sellDate);
-                    if(sellDate >= moment().startOf("week") && sellDate <= moment().endOf("week")){
-                        comics.push(comic);
-                    }
-                }
-            });
-
-            return comics;
         };
     }]);

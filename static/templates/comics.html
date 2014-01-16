@@ -1,3 +1,4 @@
+<select ng-model="week" ng-options="w.label for w in weeks"></select>
 <div ng-repeat="comic in comics" class="comic">
     <span ng-click="addToList(comic._id)" class="comic-wrapper">
         <img ng-src="//s3.amazonaws.com/pullist/comics/{{comic._id}}.jpg">
