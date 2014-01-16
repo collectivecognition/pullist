@@ -31,7 +31,7 @@ var mongo = function(callback){
 
 // Send notification emails
 
-var notify = function(message){
+var notify = function(message, callback){
     var transport = nodemailer.createTransport("SMTP", {
         service: "gmail",
         user: "collectivecognitionmail@gmail.com",
@@ -49,6 +49,7 @@ var notify = function(message){
         console.log("Sent notification email");
         if(error){ console.log("error", error); }
         transport.close();
+        callback();
     });
 };
 
@@ -59,8 +60,9 @@ var files = fs.readdirSync(".cache/json/");
 var processFile = function(num){
     if(num >= files.length){ 
         console.log("Done");
-        notify("Success!"); // FIXME
-        process.exit();
+        notify("Success!", function(){ // FIXME
+            process.exit();
+        });
         return;
     }
 
