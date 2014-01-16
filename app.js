@@ -77,7 +77,7 @@ app.configure(function(){
         store: new MongoStore(mongoUri),
         secret: "FIXME: This secret is not secret",
         cookie: {
-            maxAge: 604800 // One week
+            maxAge: 604800 * 100 // One week
         }
     }));
     app.use(passport.initialize());
