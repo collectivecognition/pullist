@@ -102,10 +102,18 @@ var processFile = function(num){
 
              mongo(function(error, db){
                 var collection = db.collection("comics");
+                // Create date object
+                data.sellDate = new Date(data.sellDate);
+
+                // Send to mongo
                 collection.update({itemCode: data.itemCode}, data, {upsert: true}, function(error, result){
                     if(error){ console.log("MongoDB error", error); }
 
-                    console.log("Inserted record for", num, data.title);
+                    if(result.updatedExisting){
+                        console.log("Updated existing record for", num, data.title);
+                    }else{
+                        console.log("Inserted record for", num, data.title);
+                    }
 
                     collection.findOne({itemCode: data.itemCode}, function(error, result){
                         // Process and upload image
