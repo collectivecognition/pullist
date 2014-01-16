@@ -2,6 +2,7 @@ var express = require("express");
 var http = require("http");
 var path = require("path");
 var passport = require("passport");
+var moment = require("moment");
 
 var MongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
@@ -195,7 +196,10 @@ app.get("/comics", function(req, res){
     mongo(function(error, db){
         var collection = db.collection("comics");
 
-        collection.find({}, function(error, comics){
+        var startDate = moment().startOf("week").toDate();
+        var endDate = moment().endOf("week").toDate();
+
+        collection.find({sellDate: {$gte: startDate, $lte: endDate}}, function(error, comics){
             comics.toArray(function(error, comics){
                 res.end(JSON.stringify(comics));
             });

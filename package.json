@@ -18,7 +18,8 @@
     "passport": "~0.1.18",
     "passport-google": "~0.3.0",
     "cheerio": "~0.13.1",
-    "connect-mongo-store": "~0.1.8"
+    "connect-mongo-store": "~0.1.8",
+    "moment": "~2.5.0"
   },
   "devDependencies": {
     "minify": "~0.2.2",
