@@ -105,9 +105,8 @@ body {
     .list {
         margin-top: $baseline;
         text-align: center;
-        font-size: 15px;
+        font-size: 13px;
         line-height: $baseline * 2;
-        font-size: 15px;
         color: #aaa;
         font-weight: 600;
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
@@ -145,7 +144,7 @@ body {
         border-radius: 0;
         height: $baseline * 2;
         -webkit-appearance: none;
-        font-size: 12px;
+        font-size: 13px;
         color: #aaa;
         font-weight: 600;
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
@@ -153,14 +152,34 @@ body {
         text-indent: $baseline / 2;
     }
 
-
-    .user {
-        position: absolute;
-        right: $baseline;
-        bottom: $baseline;
+    .button {
+        display: block;
+        box-sizing: border-box;
+        margin-top: $baseline;
+        width: 100%;
+        height: $baseline * 2;
         font-size: 12px;
+        font-weight: bold;
+        text-decoration: none;
+        line-height: $baseline * 2;
+        padding: 0 10px;
+        background: #6cb5f4;
         color: #fff;
-        font-weight: 600;
+        outline: 1px solid #5e9ed5;
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+
+        &:hover {
+            background-color: transparencify(#6cb5f4, 0.5);
+        }
+
+        &.google {
+            padding-left: 42px;
+            background-image: url(../images/google-logo.png);
+            background-position: center left;
+            background-repeat: no-repeat;
+        }
     }
 }
 
@@ -201,32 +220,6 @@ body {
         padding: 5px;
         text-align: center;
         box-sizing: border-box;
-    }
-}
-
-.button {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: $baseline * 2;
-    padding: 0 10px;
-    background: #6cb5f4;
-    color: #fff;
-    outline: 1px solid #5e9ed5;
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-
-    &:hover {
-        background-color: transparencify(#6cb5f4, 0.5);
-    }
-
-    &.google {
-        padding-left: 42px;
-        background-image: url(../images/google-logo.png);
-        background-position: center left;
-        background-repeat: no-repeat;
     }
 }
 

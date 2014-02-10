@@ -26,13 +26,15 @@
                 </div>
             </div>
 
-            <div ng-controller="LoginCtrl" class="user ng-cloak">
-                <div ng-if="!user">
-                    <a href="/auth/google" class="google button">Log In With Google</a>
-                </div>
-                <div ng-if="user">
-                    <div>
-                        <a class="button" href="/logout">Log Out {{user.displayName}}</a>
+            <div class="quarter">
+                <div ng-controller="LoginCtrl" class="user ng-cloak">
+                    <div ng-if="!user">
+                        <a href="/auth/google" class="google button">Log In With Google</a>
+                    </div>
+                    <div ng-if="user">
+                        <div>
+                            <a class="button" href="/logout">Log Out {{user.displayName}}</a>
+                        </div>
                     </div>
                 </div>
             </div>

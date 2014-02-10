@@ -80,9 +80,8 @@ body {
   .header .list {
     margin-top: 20px;
     text-align: center;
-    font-size: 15px;
+    font-size: 13px;
     line-height: 40px;
-    font-size: 15px;
     color: #aaaaaa;
     font-weight: 600;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
@@ -110,19 +109,36 @@ body {
     border-radius: 0;
     height: 40px;
     -webkit-appearance: none;
-    font-size: 12px;
+    font-size: 13px;
     color: #aaaaaa;
     font-weight: 600;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
     text-transform: uppercase;
     text-indent: 10px; }
-  .header .user {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
+  .header .button {
+    display: block;
+    box-sizing: border-box;
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
     font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 40px;
+    padding: 0 10px;
+    background: #6cb5f4;
     color: white;
-    font-weight: 600; }
+    outline: 1px solid #5e9ed5;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+    .header .button:hover {
+      background-color: transparencify(#6cb5f4, 0.5); }
+    .header .button.google {
+      padding-left: 42px;
+      background-image: url(../images/google-logo.png);
+      background-position: center left;
+      background-repeat: no-repeat; }
 
 .wrapper {
   width: 870px;
@@ -155,27 +171,6 @@ body {
     padding: 5px;
     text-align: center;
     box-sizing: border-box; }
-
-.button {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: bold;
-  text-decoration: none;
-  line-height: 40px;
-  padding: 0 10px;
-  background: #6cb5f4;
-  color: white;
-  outline: 1px solid #5e9ed5;
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
-  .button:hover {
-    background-color: transparencify(#6cb5f4, 0.5); }
-  .button.google {
-    padding-left: 42px;
-    background-image: url(../images/google-logo.png);
-    background-position: center left;
-    background-repeat: no-repeat; }
 
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important; }
