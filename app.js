@@ -204,8 +204,8 @@ app.get("/weeks", function(req, res){
             var weeks = [];
 
             for(var ii = 0; ii < dates.length; ii++){
-                var weekStart = moment(dates[ii]).startOf("week").format("MMM DD YYYY");
-                var weekEnd = moment(dates[ii]).endOf("week").format("MMM DD YYYY");
+                var weekStart = moment(dates[ii]).startOf("week").format("MMM DD/YY");
+                var weekEnd = moment(dates[ii]).endOf("week").format("MMM DD/YY");
                 var weekLabel = weekStart + " to " + weekEnd;
                 var weekValue = moment(dates[ii]).startOf("week").toString();
                 var exists = false;

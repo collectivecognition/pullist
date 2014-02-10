@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" ng-app="Pull" id="ng-app">
     <head>
-        <title ng-bind-template="Pull {{title ? ' | ' + title : ''}}">Pull</title>
+        <title ng-bind-template="Pullist {{title ? ' | ' + title : ''}}">Pull</title>
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
         <meta name="viewport" content="width=870px"/>
@@ -9,14 +9,24 @@
 
     <body>
         <div class="header">
-            <a href="/"><img src="images/logo.png"></a>
-
-            <div class="list">
-                <a ng-if="list.length" href="#/list">{{list.length}} items in your list <b>&raquo;</b></a>
-                <span ng-if="!list.length">0 items in your list</span>
+            <div  class="quarter">
+                <a href="/"><img src="images/logo.png"></a>
             </div>
 
-            <div ng-controller="LoginCtrl" class="user">
+            <div class="quarter">
+                <div class="select">
+                    <select ng-model="week" ng-options="w.label for w in weeks"></select>
+                </div>
+            </div>
+
+            <div class="quarter">
+                <div class="list ng-cloak">
+                    <a ng-if="list.length" href="#/list">{{list.length}} items in your list <b>&raquo;</b></a>
+                    <span ng-if="!list.length">Log In To Make A List</span>
+                </div>
+            </div>
+
+            <div ng-controller="LoginCtrl" class="user ng-cloak">
                 <div ng-if="!user">
                     <a href="/auth/google" class="google button">Log In With Google</a>
                 </div>

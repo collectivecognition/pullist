@@ -72,7 +72,7 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
 
         $http.get("/weeks").
             success(function(weeks){
-                $scope.weeks = weeks;
+                $rootScope.weeks = weeks;
 
                 // Select this week if possible
 
