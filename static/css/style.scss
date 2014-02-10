@@ -90,8 +90,10 @@ body {
     .quarter {
         display: block;
         width: 25%;
+        padding-right: $baseline;
         height: $baseline * 4;
         float: left;
+        box-sizing: border-box;
     }
 
     img {
@@ -110,7 +112,7 @@ body {
         font-weight: 600;
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
         text-transform: uppercase;
-        background: transparentize(#000, 0.5);
+        background: rgba(0, 0, 0, 0.5);
 
         a {
             color: #aaa;
@@ -131,7 +133,7 @@ body {
         width: 100%;
         height: $baseline * 2;
         overflow: hidden;
-        background: #ddd;
+        background: rgba(0, 0, 0, 0.5) url(../images/select-arrow.png) center right no-repeat;
         margin-top: $baseline;
     }
 
@@ -148,7 +150,7 @@ body {
         font-weight: 600;
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
         text-transform: uppercase;
-        text-align: center;
+        text-indent: $baseline / 2;
     }
 
 
