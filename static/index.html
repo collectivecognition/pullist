@@ -20,15 +20,15 @@
             </div>
 
             <div class="quarter">
-                <div class="list ng-cloak">
-                    <a ng-if="list.length" href="#/list">{{list.length}} items in your list <b>&raquo;</b></a>
-                    <span ng-if="!list.length">Login To Make A List</span>
+                <div class="list ng-cloak" ng-class="{'logged-in': user}">
+                    <a ng-if="user" href="#/list" class="ng-cloak">{{list.length}} items in your list &raquo;</a>
+                    <span ng-if="!user" class="ng-cloak">Login To Make A List</span>
                 </div>
             </div>
 
             <div class="quarter">
                 <div ng-controller="LoginCtrl" class="user ng-cloak">
-                    <div ng-if="!user">
+                    <div ng-if="!user" class="ng-cloak">
                         <a href="/auth/google" class="google button">Login With Google</a>
                     </div>
                     <div ng-if="user" class="ng-cloak">

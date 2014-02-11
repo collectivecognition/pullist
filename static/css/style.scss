@@ -112,19 +112,20 @@ body {
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
         text-transform: uppercase;
         background: rgba(0, 0, 0, 0.5);
+        opacity: 0.25;
 
-        a {
+        a, span {
             color: #aaa;
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.85);
             text-decoration: none;
-
-            &:hover {
-                color: #fff;
-            }
         }
 
-        b {
-            color: #fff;
+        &.logged-in {
+            opacity: 1;
+
+            &:hover a {
+                color: #fff;
+            }
         }
     }
 
