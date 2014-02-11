@@ -20,16 +20,43 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
     run(["$window", "$rootScope", "$location", "$http", function($window, $rootScope, $location, $http){
         top.appScope = $rootScope; // Expose app scope for debugging
 
+        $rootScope.listContains = function(id){
+            var contains = false;
+            angular.forEach($rootScope.list, function(item){
+                if(item._id == id){
+                    contains = true;
+                }
+            });
+            return contains
+        };
+
+        $rootScope.addToList = function(id){
+            if($rootScope.user){
+                $http.put("/list/add/" + id).
+                    success(function(updatedList){
+                        $rootScope.list = updatedList;
+                    }).
+                    error(function(error){
+                        // TODO
+                    });
+            }
+        };
+
+        $rootScope.removeFromList = function(id){
+            $http.delete("/list/" + id).
+                success(function(updatedList){
+                    $rootScope.list = updatedList;
+                });
+        };
     }]).
 
     controller("LoginCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
         $http.get("/user").
             success(function(user){
-                $scope.user = user;
+                $rootScope.user = user;
             }).
             error(function(error){
                 delete $scope.user;
-                console.log(error.error);
             });
 
         $http.get("/list").
@@ -40,13 +67,6 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
 
     controller("ListCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
         top.listScope = $scope;
-
-        $scope.removeFromList = function(id){
-            $http.delete("/list/" + id).
-                success(function(updatedList){
-                    $rootScope.list = updatedList;
-                });
-        };
     }]).
 
     controller("PullCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
@@ -77,34 +97,24 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
                 // Select this week if possible
 
                 var now = moment();
-                for(var ii = 0; ii < $scope.weeks.length; ii++){
-                    if(now.isSame(moment($scope.weeks[ii].value).add(-1, "minute"), "week")){
-                        $scope.week = $scope.weeks[ii];
+                for(var ii = 0; ii < $rootScope.weeks.length; ii++){
+                    if(now.isSame(moment($rootScope.weeks[ii].value).add(-1, "minute"), "week")){
+                        $rootScope.week = $rootScope.weeks[ii];
                     }
                 }
 
                 // Default to last item in list
 
-                if(!$scope.week){
-                    $scope.week = $scope.weeks[$scope.weeks.length - 1];
+                if(!$rootScope.week){
+                    $rootScope.week = $rootScope.weeks[$rootScope.weeks.length - 1];
                 }
             });
 
         // When week changes, grab a new set of comics
 
-        $scope.$watch("week", function(o, n){
-            if($scope.week){
+        $rootScope.$watch("week", function(o, n){
+            if($rootScope.week){
                 $scope.getComicsForWeek();
             }
-        });
-
-        $scope.addToList = function(id){
-            $http.put("/list/add/" + id).
-                success(function(updatedList){
-                    $rootScope.list = updatedList;
-                }).
-                error(function(error){
-                    // TODO
-                });
-        };
+        }, true);
     }]);
