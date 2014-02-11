@@ -15,7 +15,7 @@
 
             <div class="quarter">
                 <div class="select">
-                    <select ng-if="week" ng-model="week" ng-options="w.label for w in weeks"></select>
+                    <select ng-if="week" ng-model="$root.week" ng-options="w.label for w in weeks"></select>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
                     <div ng-if="!user">
                         <a href="/auth/google" class="google button">Login With Google</a>
                     </div>
-                    <div ng-if="user">
+                    <div ng-if="user" class="ng-cloak">
                         <div>
                             <a class="button" href="/logout">Log Out {{user.displayName}}</a>
                         </div>

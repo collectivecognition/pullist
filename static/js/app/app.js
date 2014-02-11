@@ -48,41 +48,18 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
                     $rootScope.list = updatedList;
                 });
         };
-    }]).
 
-    controller("LoginCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
-        $http.get("/user").
-            success(function(user){
-                $rootScope.user = user;
-            }).
-            error(function(error){
-                delete $scope.user;
-            });
+        $rootScope.publishers = [];
 
-        $http.get("/list").
-            success(function(list){
-                $rootScope.list = list;
-            });
-    }]).
-
-    controller("ListCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
-        top.listScope = $scope;
-    }]).
-
-    controller("PullCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
-        top.pullScope = $scope;
-
-        $scope.publishers = [];
-
-        $scope.getComicsForWeek = function(){
-            var weekPath = moment($scope.week.value).format("M/D/YYYY");
+        $rootScope.getComicsForWeek = function(){
+            var weekPath = moment($rootScope.week.value).format("M/D/YYYY");
             $http.get("/comics/" + weekPath).
                 success(function(comics){
-                    $scope.comics = comics;
+                    $rootScope.comics = comics;
 
                     angular.forEach(comics, function(comic){
-                        if($scope.publishers.indexOf(comic.publisher) === -1){
-                            $scope.publishers.push(comic.publisher);
+                        if($rootScope.publishers.indexOf(comic.publisher) === -1){
+                            $rootScope.publishers.push(comic.publisher);
                         }
                     });
                 });
@@ -113,8 +90,32 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
         // When week changes, grab a new set of comics
 
         $rootScope.$watch("week", function(o, n){
+            console.log("wdek changed")
             if($rootScope.week){
-                $scope.getComicsForWeek();
+                $rootScope.getComicsForWeek();
             }
         }, true);
+    }]).
+
+    controller("LoginCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
+        $http.get("/user").
+            success(function(user){
+                $rootScope.user = user;
+            }).
+            error(function(error){
+                delete $scope.user;
+            });
+
+        $http.get("/list").
+            success(function(list){
+                $rootScope.list = list;
+            });
+    }]).
+
+    controller("ListCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
+        top.listScope = $scope;
+    }]).
+
+    controller("PullCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
+        top.pullScope = $scope;
     }]);

@@ -133,7 +133,8 @@ body {
     outline: 1px solid #5e9ed5;
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    overflow: hidden; }
     .header .button:hover {
       background-color: transparencify(#6cb5f4, 0.5); }
     .header .button.google {
