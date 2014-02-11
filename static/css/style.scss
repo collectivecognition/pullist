@@ -295,6 +295,10 @@ body {
     &:hover .delete {
         display: block;
     }
+
+    &.list .add, &.list .added {
+        display: none !important;
+    }
 }
 
 [ng\:cloak], [ng-cloak], .ng-cloak {

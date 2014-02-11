@@ -227,6 +227,8 @@ body {
       opacity: 1; }
   .comic:hover .delete {
     display: block; }
+  .comic.list .add, .comic.list .added {
+    display: none !important; }
 
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important; }
