@@ -14,13 +14,13 @@
             </div>
 
             <div class="quarter">
-                <div class="select">
+                <div class="select" ng-show="$root.controller.toString() == 'PullCtrl'">
                     <select ng-if="week" ng-model="$root.week" ng-options="w.label for w in weeks"></select>
                 </div>
             </div>
 
             <div class="quarter">
-                <div class="list ng-cloak" ng-class="{'logged-in': user}">
+                <div class="list ng-cloak" ng-class="{'logged-in': user}" ng-show="$root.controller.toString() != 'ListCtrl'">
                     <a ng-if="user" href="#/list" class="ng-cloak">{{list.length}} items in your list &raquo;</a>
                     <span ng-if="!user" class="ng-cloak">Login To Make A List</span>
                 </div>

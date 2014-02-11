@@ -20,6 +20,13 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
     run(["$window", "$rootScope", "$location", "$http", function($window, $rootScope, $location, $http){
         top.appScope = $rootScope; // Expose app scope for debugging
 
+        $rootScope.$on("$routeChangeSuccess", function(event, current, previous){
+            // Update some global values when the route changes
+
+            $rootScope.controller = current.$$route.controller;
+            $rootScope.title = current.$$route.title;
+        });
+
         $rootScope.listContains = function(id){
             var contains = false;
             angular.forEach($rootScope.list, function(item){
