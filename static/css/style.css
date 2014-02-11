@@ -109,6 +109,7 @@ body {
     border-radius: 0;
     height: 40px;
     -webkit-appearance: none;
+    outline: none;
     font-size: 13px;
     color: #aaaaaa;
     font-weight: 600;
