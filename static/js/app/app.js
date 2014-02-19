@@ -72,6 +72,12 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
                 });
         };
 
+        $rootScope.handleImageError = function(img){
+            console.log("error")
+            img.onerror = "";
+            img.src = "/images/default.png";
+        };
+
         // Retrieve a list of available weeks
 
         $http.get("/weeks").
@@ -97,7 +103,6 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
         // When week changes, grab a new set of comics
 
         $rootScope.$watch("week", function(o, n){
-            console.log("wdek changed")
             if($rootScope.week){
                 $rootScope.getComicsForWeek();
             }
@@ -125,4 +130,16 @@ angular.module("Pull", ["ngCookies", "ngRoute"]).
 
     controller("PullCtrl", ["$scope", "$rootScope", "$http", function($scope, $rootScope, $http){
         top.pullScope = $scope;
-    }]);
+    }]).
+
+    directive("errorImage", function(){
+        return {
+            link: function(scope, element, attrs){
+                console.log("bound")
+                element.bind("error", function(){
+                    console.log("error")
+                    element.attr("src", attrs.errorImage);
+                });
+            }
+        };
+    });
