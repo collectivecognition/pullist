@@ -1,6 +1,6 @@
 <div ng-repeat="comic in list" class="comic list">
     <span class="comic-wrapper">
-        <img ng-src="//s3.amazonaws.com/pullist/comics/{{comic._id}}.jpg">
+        <img ng-src="//s3.amazonaws.com/pullist/comics/{{comic._id}}.jpg" error-image="/images/default.png">
         <div class="title">{{comic.title}}</div>
         <div class="added" ng-class="{visible: listContains(comic._id)}"></div>
         <div class="delete" ng-click="removeFromList(comic._id)" ng-class="{active: listContains(comic._id) && user}"></div>
